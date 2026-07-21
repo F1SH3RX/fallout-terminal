@@ -4,7 +4,8 @@ class HackingGame:
         self.password = password  #the correct password
         self.words = words   #all words in the game
         self.attempts = 4   #number of attempts allowed
-        self.finished = False  #whether the game is finished
+        self.locked = False  #true if the game is locked, false otherwise
+        self.success = False  #true if the game is won, false otherwise
 
     def calculate_likeness(self, guess):
         correct = 0
@@ -17,11 +18,17 @@ class HackingGame:
     
     def guess(self, word):
 
-        if self.finished:
-            return "Terminal locked"
+        if self.locked:
+            return "TERMINAL LOCKED"
+        
+        if self.success:
+            return "ACCESS ALREADY GRANTED"
+
+        if word not in self.words:
+            return "INVALID SELECTION"
 
         if word == self.password:
-            self.finished = True
+            self.success = True
             return "ACCESS GRANTED"
 
         self.attempts -= 1
@@ -29,7 +36,7 @@ class HackingGame:
         likeness = self.calculate_likeness(word)
 
         if self.attempts == 0:
-            self.finished = True
+            self.locked = True
             return "ACCESS DENIED - LOCKED"
 
-        return f"{likeness}/{len(self.password)} correct"
+        return f"{likeness}/{len(self.password)} correct\n" f"Attempts remaining: {self.attempts}"
