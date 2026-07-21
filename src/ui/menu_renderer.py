@@ -1,0 +1,67 @@
+import curses
+
+
+class MenuRenderer:
+
+
+    TITLE = r"""
+░░      ░░░░      ░░░░      ░░░        ░░░      ░░░        ░░        ░░░      ░░░  ░░░░░░░░        ░
+▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒
+▓▓      ▓▓▓  ▓▓▓▓▓▓▓▓  ▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓  ▓▓  ▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓
+███████  ██  ████  ██  ████  █████  █████        █████  ████████  █████  ████  ██  ███████████  ████
+██      ████      ████      ███        ██  ████  █████  ████████  ██████      ███        ██        █
+                                                                                                    
+"""
+
+
+    def render(self, stdscr, menu):
+
+        stdscr.clear()
+
+
+        y = 2
+
+
+        for line in self.TITLE.split("\n"):
+
+            stdscr.addstr(
+                y,
+                2,
+                line,
+                curses.color_pair(1)
+            )
+
+            y += 1
+
+
+
+        y += 2
+
+
+        stdscr.addstr(
+            y,
+            5,
+            "ROBCO INDUSTRIES TERMINAL",
+            curses.color_pair(1)
+        )
+
+
+        y += 2
+
+
+        for index, option in enumerate(menu.options):
+
+            prefix = ">" if index == menu.selected else " "
+
+            stdscr.addstr(
+                y,
+                8,
+                f"{prefix} {option}",
+                curses.color_pair(1)
+            )
+
+            y += 1
+
+
+
+        stdscr.refresh()

@@ -1,9 +1,10 @@
 from pygments import highlight
-from rich import screen
+from rich import screen, text
 from ui.colors import HIGHLIGHT, RESET
 from core import cursor
+import random
+import time
 import curses
-
 class TerminalRenderer:
 
     def __init__(self, start_address=0xF420):
@@ -66,3 +67,62 @@ class TerminalRenderer:
                 return element
 
         return None
+    
+    def type_text(self, stdscr, row, text):
+
+        for i in range(len(text) + 1):
+
+            try:
+
+                stdscr.addstr(
+                    row,
+                    0,
+                    text[:i],
+                    curses.color_pair(1)
+                )
+
+                stdscr.refresh()
+
+                time.sleep(0.01)
+
+            except curses.error:
+                pass
+    
+    def crt_flicker(self, stdscr):
+
+        import random
+        import time
+
+        if random.random() < 0.15:
+
+            max_y, max_x = stdscr.getmaxyx()
+
+            # lampeggio rapido
+            stdscr.refresh()
+
+            time.sleep(0.08)
+
+            # crea disturbo casuale
+            for _ in range(3):
+
+                row = random.randint(
+                    0,
+                    max_y - 2
+                )
+
+                try:
+
+                    stdscr.addstr(
+                        row,
+                        0,
+                        " " * (max_x - 1),
+                        curses.color_pair(1)
+                    )
+
+                except curses.error:
+                    pass
+
+
+            stdscr.refresh()
+
+            time.sleep(0.05)
