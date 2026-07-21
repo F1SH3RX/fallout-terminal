@@ -7,12 +7,13 @@ class GameSession:
         self.completed = False
         self.failed = False
 
-    def check_state(self):
+    def update(self):
 
-        if self.terminal.game.finished:
+        game = self.terminal.game
 
-            if self.terminal.game.attempts > 0:
-                self.completed = True
 
-            else:
-                self.failed = True
+        if game.success:
+            self.completed = True
+
+        elif game.locked:
+            self.failed = True
