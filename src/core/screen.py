@@ -52,7 +52,10 @@ class TerminalScreen:
         )
     def can_place_word(self, word, row, column):
 
-        if column + len(word) >= self.columns:
+        if row < 0 or row >= self.rows:
+            return False
+
+        if column  < 0 or column + len(word) > self.columns:
             return False
 
         for index in range(len(word)):

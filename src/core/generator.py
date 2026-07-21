@@ -20,7 +20,7 @@ class PuzzleGenerator:
 
         selected = random.sample(
             candidates,
-            min(5, len(candidates))
+            min(12, len(candidates))
         )
 
         if self.password not in selected:

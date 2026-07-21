@@ -1,5 +1,5 @@
-from pygments import highlight
-from rich import screen, text
+#from pygments import highlight
+#from rich import screen, text
 from ui.colors import HIGHLIGHT, RESET
 from core import cursor
 import random

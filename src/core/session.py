@@ -1,23 +1,19 @@
+from sys import path
+
 from core.cursor import Cursor
 from core.terminal import Terminal
 from core.hacking import HackingGame
 from core.generator import PuzzleGenerator
 from core.screen_generator import ScreenGenerator
-
-
+import random
+import os
 class Session:
 
     def __init__(self):
 
-        self.words = [
-            "OVERSEER",
-            "SECURITY",
-            "DIRECTOR",
-            "FACILITY"
-        ]
+        self.words = self.load_dictionary()
 
-        self.password = "OVERSEER"
-
+        self.password = random.choice(self.words)
 
         generator = PuzzleGenerator(
             self.password,
@@ -56,6 +52,17 @@ class Session:
 
         self.message = ""
 
+    def load_dictionary(self):
+
+        path = "data/dictionaries/8.txt"
+
+        with open(path, "r") as file:
+
+            return [
+                line.strip().upper()
+                for line in file
+                if line.strip()
+            ]
 
     def select(self):
 

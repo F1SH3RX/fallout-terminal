@@ -1,5 +1,8 @@
 import random
 
+#from pygments.lexer import words
+
+from core import screen
 from core.screen import TerminalScreen
 from core.noise import generate_noise
 from core.brackets import generate_bracket
@@ -20,33 +23,55 @@ class ScreenGenerator:
             self.columns
         )
 
-        for row, word in enumerate(words):
 
-            while True:
+        for word in words:
+
+            placed = False
+
+            attempts = 0
+
+
+            while not placed and attempts < 100:
+
+                attempts += 1
+
+
+                row = random.randint(
+                    0,
+                    self.rows - 1
+                )
+
 
                 column = random.randint(
                     2,
-                    self.columns - len(word) - 3
+                    self.columns - len(word) - 2
                 )
+
 
                 if screen.can_place_word(
                     word,
                     row,
                     column
                 ):
-                    break
 
-            screen.add_word(
-                word,
-                row,
-                column
-            )
-        
+                    screen.add_word(
+                        word,
+                        row,
+                        column
+                    )
+
+                    placed = True
+
+
+
         for _ in range(8):
+
             self.place_bracket(screen)
 
 
+
         self.fill_noise(screen)
+
 
         return screen
 
