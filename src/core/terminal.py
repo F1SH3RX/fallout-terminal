@@ -1,4 +1,5 @@
 from core.bracket import BracketAction
+from core.cursor import Cursor
 class Terminal:
 
     def __init__(
@@ -8,16 +9,36 @@ class Terminal:
     ):
         self.game = game
         self.screen = screen
+        self.cursor = Cursor(screen)
         self.bracket_action = BracketAction(self)
+
+    def move_cursor_next(self):
+
+        self.cursor.next()
+
+
+    def move_cursor_previous(self):
+
+        self.cursor.previous()
+
+
+    def select_current(self):
+
+        element = self.cursor.current()
+
+        if element is None:
+            return "NOTHING SELECTED"
+
+        return self.select_element(element)
 
     def select_element(self, element):
 
         if element.element_type == "WORD":
 
-            return self.game.guess(
+            result = self.game.guess(
                 element.value
             )
-
+            return result
 
         if element.element_type == "BRACKET":
 
@@ -64,6 +85,17 @@ class Terminal:
         element = self.get_element_at(
             row,
             column
+        )
+
+        if element is None:
+            return "NOTHING SELECTED"
+
+        return self.select_element(element)
+    def select_cursor(self):
+
+        element = self.get_element_at(
+            self.cursor.row,
+            self.cursor.column
         )
 
         if element is None:

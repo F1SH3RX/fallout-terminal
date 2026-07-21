@@ -29,3 +29,6 @@ class PuzzleGenerator:
         random.shuffle(selected)
 
         return selected
+    
+    def get_password(self):
+        return self.password

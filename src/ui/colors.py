@@ -1,0 +1,2 @@
+HIGHLIGHT = 1
+RESET = 0

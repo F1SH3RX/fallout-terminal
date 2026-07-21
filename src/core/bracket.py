@@ -9,7 +9,7 @@ class BracketAction:
         self.screen = terminal.screen
 
 
-    def activate(self):
+    def activate(self, element):
 
         action = random.choice(
             [
@@ -21,12 +21,17 @@ class BracketAction:
 
         if action == "REMOVE_DUD":
 
-            return self.remove_dud()
+            result = self.remove_dud()
+
+        else:
+
+            result = self.reset_attempts()
 
 
-        if action == "RESET_ATTEMPTS":
+        element.active = False
 
-            return self.reset_attempts()
+        return result
+
 
 
     def remove_dud(self):
@@ -35,19 +40,22 @@ class BracketAction:
             word
             for word in self.hacking_game.words
             if word != self.hacking_game.password
-    ]
+        ]
 
 
         if len(words) == 0:
+
             return "NO DUD AVAILABLE"
 
 
         dud = random.choice(words)
 
         self.hacking_game.words.remove(dud)
+
         self.terminal.remove_word_element(dud)
 
         return f"DUD REMOVED: {dud}"
+
 
 
     def reset_attempts(self):
