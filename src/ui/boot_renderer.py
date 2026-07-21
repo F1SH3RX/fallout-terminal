@@ -70,7 +70,8 @@ class BootRenderer:
     def loading_bar(self, stdscr):
 
         stdscr.addstr(
-            "\nLOADING SYSTEM: ["
+            "\nLOADING SYSTEM: [",
+            curses.color_pair(1)
         )
 
         stdscr.refresh()

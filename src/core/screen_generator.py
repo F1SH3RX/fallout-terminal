@@ -1,8 +1,5 @@
 import random
 
-#from pygments.lexer import words
-
-from core import screen
 from core.screen import TerminalScreen
 from core.noise import generate_noise
 from core.brackets import generate_bracket
@@ -11,7 +8,7 @@ from core.elements import TerminalElement
 
 class ScreenGenerator:
 
-    def __init__(self, rows=16, columns=32):
+    def __init__(self, rows=22, columns=32):
         self.rows = rows
         self.columns = columns
 
@@ -24,14 +21,14 @@ class ScreenGenerator:
         )
 
 
+        # inserimento parole
         for word in words:
 
             placed = False
-
             attempts = 0
 
 
-            while not placed and attempts < 100:
+            while not placed and attempts < 200:
 
                 attempts += 1
 
@@ -43,7 +40,7 @@ class ScreenGenerator:
 
 
                 column = random.randint(
-                    2,
+                    1,
                     self.columns - len(word) - 2
                 )
 
@@ -64,56 +61,70 @@ class ScreenGenerator:
 
 
 
-        for _ in range(8):
+        # inserimento bracket
+        for _ in range(12):
 
-            self.place_bracket(screen)
+            self.place_bracket(
+                screen
+            )
 
 
-
-        self.fill_noise(screen)
+        # riempimento simboli
+        self.fill_noise(
+            screen
+        )
 
 
         return screen
+
 
 
     def place_bracket(self, screen):
 
         bracket = generate_bracket()
 
-        while True:
+
+        for _ in range(100):
 
             row = random.randint(
                 0,
-                self.rows - 1
+                screen.rows - 1
             )
+
 
             column = random.randint(
                 0,
-                self.columns - len(bracket) - 1
+                screen.columns - len(bracket) - 1
             )
+
 
             if screen.can_place_word(
                 bracket,
                 row,
                 column
             ):
-                break
 
-        for index, char in enumerate(bracket):
-            screen.set_character(
-                row,
-                column + index,
-                char
-            )
+                for index, char in enumerate(bracket):
 
-        screen.elements.append(
-            TerminalElement(
-                value=bracket,
-                element_type="BRACKET",
-                row=row,
-                column=column
-            )
-        )
+                    screen.set_character(
+                        row,
+                        column + index,
+                        char
+                    )
+
+
+                screen.elements.append(
+                    TerminalElement(
+                        value=bracket,
+                        element_type="BRACKET",
+                        row=row,
+                        column=column
+                    )
+                )
+
+                return
+
+
 
     def fill_noise(self, screen):
 
@@ -123,6 +134,4 @@ class ScreenGenerator:
 
                 if screen.grid[row][column] == " ":
 
-                    screen.grid[row][column] = (
-                        generate_noise(1)
-                    )
+                    screen.grid[row][column] = generate_noise(1)

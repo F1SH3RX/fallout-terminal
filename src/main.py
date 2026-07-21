@@ -240,9 +240,9 @@ def main(stdscr):
         try:
 
             stdscr.addstr(
-                17,
+                23,
                 0,
-                f"Attempts: {session.game.attempts}",
+                f"Attempts remaining: {session.game.attempts}",
                 curses.color_pair(1)
             )
 
@@ -260,7 +260,7 @@ def main(stdscr):
         try:
 
             stdscr.addstr(
-                19,
+                25,
                 0,
                 " " * (max_x - 1),
                 curses.color_pair(1)
@@ -271,12 +271,12 @@ def main(stdscr):
                 session.message.split("\n")
             ):
 
-                if 19 + index >= max_y:
+                if 25 + index >= max_y:
                     break
 
 
                 stdscr.addstr(
-                    19 + index,
+                    25 + index,
                     0,
                     line[:max_x-1],
                     curses.color_pair(1)
@@ -352,7 +352,7 @@ def main(stdscr):
             try:
 
                 stdscr.addstr(
-                    21,
+                    27,
                     0,
                     session.message,
                     curses.color_pair(1)
@@ -360,7 +360,7 @@ def main(stdscr):
 
 
                 stdscr.addstr(
-                    22,
+                    28,
                     0,
                     "PRESS ANY KEY TO CONTINUE",
                     curses.color_pair(1)

@@ -39,4 +39,4 @@ class HackingGame:
             self.locked = True
             return "ACCESS DENIED - LOCKED"
 
-        return f"{likeness}/{len(self.password)} correct\n" f"Attempts remaining: {self.attempts}"
+        return f"{likeness}/{len(self.password)} correct\n" 
