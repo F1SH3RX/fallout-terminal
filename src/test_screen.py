@@ -17,3 +17,7 @@ renderer = TerminalRenderer()
 print(
     renderer.render(screen)
 )
+print("\nELEMENTS:")
+
+for element in screen.elements:
+    print(element)

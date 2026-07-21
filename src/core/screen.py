@@ -1,9 +1,10 @@
+from core.elements import TerminalElement
 class TerminalScreen:
 
     def __init__(self, rows=16, columns=32):
         self.rows = rows
         self.columns = columns
-
+        self.elements = []
         self.grid = [
             [" " for _ in range(columns)]
             for _ in range(rows)
@@ -23,6 +24,14 @@ class TerminalScreen:
             "row": row,
             "column": column
         }
+        self.elements.append(
+            TerminalElement(
+                value=word,
+                element_type="WORD",
+                row=row,
+                column=column
+            )
+        )
 
     def set_character(self, row, column, char):
         if (
