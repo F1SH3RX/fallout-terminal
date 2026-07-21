@@ -1,16 +1,19 @@
-from core.screen import TerminalScreen
+from core.screen_generator import ScreenGenerator
+from ui.renderer import TerminalRenderer
+words = [
+    "OVERSEER",
+    "SECURITY",
+    "DIRECTOR"
+]
 
 
-screen = TerminalScreen(
-    rows=5,
-    columns=20
+generator = ScreenGenerator()
+
+
+screen = generator.generate(words)
+
+
+renderer = TerminalRenderer()
+print(
+    renderer.render(screen)
 )
-
-
-screen.set_character(0,0,"R")
-screen.set_character(0,1,"O")
-screen.set_character(0,2,"B")
-screen.set_character(0,3,"C")
-
-
-print(screen.render())

@@ -41,3 +41,14 @@ class TerminalScreen:
             self.get_line(row)
             for row in range(self.rows)
         )
+    def can_place_word(self, word, row, column):
+
+        if column + len(word) >= self.columns:
+            return False
+
+        for index in range(len(word)):
+
+            if self.grid[row][column + index] != " ":
+                return False
+
+        return True
