@@ -21,7 +21,7 @@ class Terminal:
 
         if element.element_type == "BRACKET":
 
-            return self.bracket_action.activate()
+            return self.bracket_action.activate(element)
 
     def attempt(self, word):
 
