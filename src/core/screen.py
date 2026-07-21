@@ -61,3 +61,13 @@ class TerminalScreen:
                 return False
 
         return True
+    
+    def hide_element(self, element):
+
+        for i in range(len(element.value)):
+
+            self.grid[
+                element.row
+            ][
+                element.column + i
+            ] = "."

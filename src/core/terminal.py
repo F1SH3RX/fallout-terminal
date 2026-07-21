@@ -8,7 +8,7 @@ class Terminal:
     ):
         self.game = game
         self.screen = screen
-        self.bracket_action = BracketAction(self.game)
+        self.bracket_action = BracketAction(self)
 
     def select_element(self, element):
 
@@ -38,4 +38,35 @@ class Terminal:
                 and element.element_type == "WORD"
             ):
                 element.active = False
+                self.screen.hide_element(element)
                 return
+            
+    def get_element_at(self, row, column):
+
+        for element in self.screen.elements:
+
+            if not element.active:
+                continue
+
+            if element.row != row:
+                continue
+
+            start = element.column
+            end = element.column + len(element.value)
+
+            if start <= column < end:
+                return element
+
+        return None
+    
+    def click(self, row, column):
+
+        element = self.get_element_at(
+            row,
+            column
+        )
+
+        if element is None:
+            return "NOTHING SELECTED"
+
+        return self.select_element(element)

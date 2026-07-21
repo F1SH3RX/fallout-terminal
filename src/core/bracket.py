@@ -3,8 +3,10 @@ import random
 
 class BracketAction:
 
-    def __init__(self, hacking_game):
-        self.hacking_game = hacking_game
+    def __init__(self, terminal):
+        self.terminal = terminal
+        self.hacking_game = terminal.game
+        self.screen = terminal.screen
 
 
     def activate(self):
@@ -43,6 +45,7 @@ class BracketAction:
         dud = random.choice(words)
 
         self.hacking_game.words.remove(dud)
+        self.terminal.remove_word_element(dud)
 
         return f"DUD REMOVED: {dud}"
 
