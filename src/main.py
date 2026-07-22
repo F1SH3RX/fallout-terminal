@@ -7,7 +7,36 @@ from ui.renderer import TerminalRenderer
 from core.menu import MainMenu
 from ui.menu_renderer import MenuRenderer
 import curses
+import time
 
+def show_page(stdscr, lines):
+
+    stdscr.clear()
+
+    y = 3
+
+    for line in lines:
+
+        stdscr.addstr(
+            y,
+            5,
+            line,
+            curses.color_pair(1)
+        )
+
+        y += 1
+
+
+    stdscr.addstr(
+        y + 2,
+        5,
+        "PRESS ANY KEY TO RETURN",
+        curses.color_pair(1)
+    )
+
+    stdscr.refresh()
+
+    stdscr.getch()
 
 def main(stdscr):
 
@@ -90,35 +119,28 @@ def main(stdscr):
                 break
 
             elif menu.current() == "SYSTEM INFORMATION":
-
-                stdscr.clear()
-
-
-                y = 3
-
-                for line in menu.get_information():
-
-                    stdscr.addstr(
-                        y,
-                        5,
-                        line,
-                        curses.color_pair(1)
-                    )
-
-                    y += 1
-
-
-                stdscr.addstr(
-                    y + 2,
-                    5,
-                    "PRESS ANY KEY TO RETURN",
-                    curses.color_pair(1)
+                show_page(
+                    stdscr,
+                    menu.get_information()
                 )
 
+            elif menu.current() == "USER LOGS":
+                show_page(
+                    stdscr,
+                    menu.get_logs()
+                )
 
-                stdscr.refresh()
+            elif menu.current() == "SECURITY DATABASE":
+                show_page(
+                    stdscr,
+                    menu.get_security_database()
+                )
 
-                stdscr.getch()
+            elif menu.current() == "NETWORK STATUS":
+                show_page(
+                    stdscr,
+                    menu.get_network_status()
+                )
 
             elif menu.current() == "SHUTDOWN":
                 return
@@ -127,10 +149,51 @@ def main(stdscr):
     # HACKING TERMINAL
     # ======================
 
+    loading_lines = [
+        "ACCESSING SECURITY DATABASE...",
+        "VERIFYING USER PRIVILEGES...",
+        "LOADING ENCRYPTED FILES...",
+        "INITIALIZING HACKING MODULE..."
+    ]
+
+
+    for line in loading_lines:
+
+        stdscr.clear()
+
+        stdscr.addstr(
+            5,
+            5,
+            line,
+            curses.color_pair(1)
+        )
+
+        stdscr.refresh()
+
+        time.sleep(0.8)
+
+
+    for i in range(18):
+
+        stdscr.addstr(
+            7,
+            5,
+            "[" + "#" * i + " " * (17-i) + "]",
+            curses.color_pair(1)
+        )
+
+        stdscr.refresh()
+
+        time.sleep(0.05)
+
+
+    time.sleep(0.5)
+
+
     session = Session()
 
     renderer = TerminalRenderer()
-
+    
 
 
     while True:
