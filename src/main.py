@@ -310,13 +310,41 @@ def main(stdscr):
 
 
         # ======================
-        # ATTEMPTS
+        # INFO PANEL
         # ======================
 
         try:
 
+            info_y = len(output.split("\n")) + 1
+
+
             stdscr.addstr(
-                23,
+                info_y,
+                0,
+                "PASSWORD ANALYSIS:",
+                curses.color_pair(1)
+            )
+
+            info_y += 1
+
+
+            for word, result in session.history:
+
+                stdscr.addstr(
+                    info_y,
+                    0,
+                    f"{word:<12} {result}",
+                    curses.color_pair(1)
+                )
+
+                info_y += 1
+
+
+            info_y += 1
+
+
+            stdscr.addstr(
+                info_y,
                 0,
                 f"Attempts remaining: {session.game.attempts}",
                 curses.color_pair(1)
@@ -327,32 +355,36 @@ def main(stdscr):
             pass
 
 
-
-
         # ======================
         # RESULT MESSAGE
         # ======================
 
         try:
 
-            stdscr.addstr(
-                25,
-                0,
-                " " * (max_x - 1),
-                curses.color_pair(1)
-            )
+            message_y = info_y + 2
+
+
+            # pulizia area messaggio
+            for i in range(3):
+
+                stdscr.addstr(
+                    message_y + i,
+                    0,
+                    " " * (max_x - 1),
+                    curses.color_pair(1)
+                )
 
 
             for index, line in enumerate(
                 session.message.split("\n")
             ):
 
-                if 25 + index >= max_y:
+                if message_y + index >= max_y:
                     break
 
 
                 stdscr.addstr(
-                    25 + index,
+                    message_y + index,
                     0,
                     line[:max_x-1],
                     curses.color_pair(1)

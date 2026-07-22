@@ -53,7 +53,8 @@ class Session:
 
 
         self.message = ""
-
+        self.history = []
+        self.finished = False
     def load_dictionary(self):
 
         path = "data/dictionaries/8.txt"
@@ -73,10 +74,24 @@ class Session:
 
     def select(self):
 
+        element = self.cursor.current()
+
         result = self.terminal.select_cursor()
+
+
+        if element and element.element_type == "WORD":
+
+            self.history.append(
+                (
+                    element.value,
+                    result
+                )
+            )
+            print(self.history)
 
         if result:
             self.message = result
+
 
         if self.game.success or self.game.locked:
 

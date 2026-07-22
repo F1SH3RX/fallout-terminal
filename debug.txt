@@ -1,0 +1,27 @@
+
+--- SELECT ---
+ELEMENT: TerminalElement(value='FIRMWARE', element_type='WORD', row=0, column=21, active=True)
+RESULT: 1/8 correct
+
+ELEMENT TYPE: WORD
+ELEMENT VALUE: FIRMWARE
+HISTORY UPDATED: [('FIRMWARE', '1/8 correct')]
+FINAL HISTORY: [('FIRMWARE', '1/8 correct')]
+
+--- SELECT ---
+ELEMENT: TerminalElement(value='COMPILER', element_type='WORD', row=3, column=7, active=True)
+RESULT: 0/8 correct
+
+ELEMENT TYPE: WORD
+ELEMENT VALUE: COMPILER
+HISTORY UPDATED: [('FIRMWARE', '1/8 correct'), ('COMPILER', '0/8 correct')]
+FINAL HISTORY: [('FIRMWARE', '1/8 correct'), ('COMPILER', '0/8 correct')]
+
+--- SELECT ---
+ELEMENT: TerminalElement(value='SOFTWARE', element_type='WORD', row=6, column=2, active=True)
+RESULT: 0/8 correct
+
+ELEMENT TYPE: WORD
+ELEMENT VALUE: SOFTWARE
+HISTORY UPDATED: [('FIRMWARE', '1/8 correct'), ('COMPILER', '0/8 correct'), ('SOFTWARE', '0/8 correct')]
+FINAL HISTORY: [('FIRMWARE', '1/8 correct'), ('COMPILER', '0/8 correct'), ('SOFTWARE', '0/8 correct')]
