@@ -1,0 +1,215 @@
+{
+    "root": [
+        {
+            "name": "LOCATION",
+            "type": "folder",
+            "children": [
+                {
+                    "name": "HUNTING_ZONE.TXT",
+                    "type": "file",
+                    "content": [
+                        "ROBCO INDUSTRIES (TM)",
+                        "LOCATION DATABASE",
+                        "",
+                        "REGISTERED AREA:",
+                        "VAL DI SUSA - AVIGLIANA",
+                        "PIEDMONT, ITALY",
+                        "",
+                        "TARGET ZONE:",
+                        "FOREST AREA NEAR LAGO GRANDE",
+                        "MUNICIPALITY: AVIGLIANA (TO)",
+                        "",
+                        "STATUS:",
+                        "SUITABLE FOR OUTDOOR OPERATIONS",
+                        "VEGETATION DENSITY: HIGH",
+                        "TERRAIN: MIXED WOODLAND"
+                    ]
+                },
+                {
+                    "name": "GPS_DATA.TXT",
+                    "type": "file",
+                    "content": [
+                        "GPS ARCHIVE",
+                        "",
+                        "PRIMARY LOCATION:",
+                        "AVIGLIANA",
+                        "TORINO, ITALY",
+                        "",
+                        "REFERENCE COORDINATES:",
+                        "LATITUDE: 45.0715",
+                        "LONGITUDE: 7.3948",
+                        "",
+                        "ELEVATION:",
+                        "APPROX. 380 METERS",
+                        "",
+                        "SIGNAL STATUS:",
+                        "GPS LOCKED"
+                    ]
+                },
+                {
+                    "name": "AREA_REPORT.TXT",
+                    "type": "file",
+                    "content": [
+                        "FIELD REPORT #2077-08",
+                        "",
+                        "AREA ANALYSIS COMPLETE.",
+                        "",
+                        "KNOWN FEATURES:",
+                        "- WOODED SECTIONS",
+                        "- NATURAL PATHWAYS",
+                        "- LOW VISIBILITY AREAS",
+                        "",
+                        "RECOMMENDATION:",
+                        "USE TEAM BASED MOVEMENT.",
+                        "MAINTAIN RADIO CONTACT."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "TEAM SCOIATTOLI",
+            "type": "folder",
+            "children": [
+                {
+                    "name": "VITTORIO DE STEFANIS",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "name": "PERSONAL_LOG_01.TXT",
+                            "type": "file",
+                            "content": [
+                                "PRIVATE JOURNAL",
+                                "USER: VITTORIO DE STEFANIS",
+                                "",
+                                "[04/09/2077]",
+                                "",
+                                "Training session completed.",
+                                "The team is improving coordination",
+                                "but communication during missions",
+                                "needs further optimization."
+                            ]
+                        },
+                        {
+                            "name": "PERSONAL_LOG_02.TXT",
+                            "type": "file",
+                            "content": [
+                                "PRIVATE JOURNAL",
+                                "USER: VITTORIO DE STEFANIS",
+                                "",
+                                "[18/09/2077]",
+                                "",
+                                "New operational procedures uploaded.",
+                                "",
+                                "The objective is clear:",
+                                "complete the mission while keeping",
+                                "the team synchronized."
+                            ]
+                        },
+                        {
+                            "name": "CONFIDENTIAL.TXT",
+                            "type": "file",
+                            "content": [
+                                "ROBCO SECURITY DATABASE",
+                                "CLASSIFICATION: TOP SECRET",
+                                "",
+                                "USER PROFILE:",
+                                "VITTORIO DE STEFANIS",
+                                "",
+                                "CLEARANCE LEVEL: 5",
+                                "",
+                                "PRIVATE ACCESS CREDENTIALS:",
+                                "USERNAME: VDE_STEFANIS",
+                                "PASSWORD: FALCON-2077",
+                                "",
+                                "SECURITY OVERRIDE CODE:",
+                                "VX-77-ALPHA-941",
+                                "",
+                                "RADIO FREQUENCY:",
+                                "CHANNEL: 08.42",
+                                "ENCRYPTION KEY: SCOIATTOLI-RED",
+                                "",
+                                "WARNING:",
+                                "THIS FILE WAS NOT INTENDED",
+                                "FOR GENERAL TEAM ACCESS.",
+                                "",
+                                "UNAUTHORIZED DISCLOSURE",
+                                "WILL RESULT IN ACCOUNT LOCKDOWN."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "SALVATORE SCALESE",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "name": "PERSONAL_LOG_01.TXT",
+                            "type": "file",
+                            "content": [
+                                "PRIVATE JOURNAL",
+                                "USER: SALVATORE SCALESE",
+                                "",
+                                "[02/09/2077]",
+                                "",
+                                "Equipment check completed.",
+                                "",
+                                "All devices operational.",
+                                "Waiting for next field deployment."
+                            ]
+                        },
+                        {
+                            "name": "PERSONAL_LOG_02.TXT",
+                            "type": "file",
+                            "content": [
+                                "PRIVATE JOURNAL",
+                                "USER: SALVATORE SCALESE",
+                                "",
+                                "[25/09/2077]",
+                                "",
+                                "Encrypted communication test successful.",
+                                "",
+                                "Team confidence level increased.",
+                                "Mission preparation continues."
+                            ]
+                        },
+                        {
+                            "name": "CONFIDENTIAL.TXT",
+                            "type": "file",
+                            "content": [
+                                 "ROBCO SECURITY DATABASE",
+                                    "CLASSIFICATION: RESTRICTED",
+                                    "",
+                                    "USER PROFILE:",
+                                    "SALVATORE SCALESE",
+                                    "",
+                                    "CLEARANCE LEVEL: 4",
+                                    "",
+                                    "SYSTEM LOGIN:",
+                                    "USERNAME: S_SCALESE",
+                                    "PASSWORD: SQRL-88-TURIN",
+                                    "",
+                                    "BACKUP ACCESS TOKEN:",
+                                    "TOKEN: AVN-4521-X",
+                                    "",
+                                    "HIDDEN COMMAND:",
+                                    "FS_UNLOCK_SEQUENCE:",
+                                    "7-14-21-42",
+                                    "",
+                                    "INTERNAL NOTE:",
+                                    "USER HAS ACCESS TO",
+                                    "UNREGISTERED FILES.",
+                                    "",
+                                    "AUDIT REQUIRED."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "SHUTDOWN",
+            "type": "action",
+            "action": "shutdown"
+        }
+    ]
+}

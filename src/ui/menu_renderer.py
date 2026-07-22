@@ -63,7 +63,7 @@ class MenuRenderer:
         stdscr.addstr(
             y,
             5,
-            "ROBCO INDUSTRIES TERMINAL",
+            menu.title(),
             curses.color_pair(1)
         )
 
@@ -78,7 +78,7 @@ class MenuRenderer:
             stdscr.addstr(
                 y,
                 8,
-                f"{prefix} {option}",
+                f"{prefix} {option['name']}",
                 curses.color_pair(1)
             )
 
