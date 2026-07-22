@@ -3,7 +3,9 @@ import time
 
 class Boot:
 
-    def __init__(self):
+    def __init__(self, audio):
+
+        self.audio = audio
 
         self.finished = False
 
@@ -24,6 +26,12 @@ class Boot:
 
     def run(self, renderer, stdscr):
 
+        # suono accensione terminale
+        self.audio.play(
+            "boot.wav"
+        )
+
+        time.sleep(0.5)
         for line in self.lines:
 
             renderer.type_line(

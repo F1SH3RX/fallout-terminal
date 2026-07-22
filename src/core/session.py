@@ -9,7 +9,7 @@ import random
 import os
 class Session:
 
-    def __init__(self):
+    def __init__(self, audio=None):
 
         self.words = self.load_dictionary()
 
@@ -38,12 +38,14 @@ class Session:
 
         self.terminal = Terminal(
             self.game,
-            self.screen
+            self.screen,
+            audio
         )
 
 
         self.cursor = Cursor(
-            self.screen
+            self.screen, 
+            audio
         )
 
 

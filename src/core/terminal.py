@@ -5,12 +5,13 @@ class Terminal:
     def __init__(
         self,
         game,
-        screen
+        screen,
+        audio=None
     ):
         self.game = game
         self.screen = screen
-        self.cursor = Cursor(screen)
-        self.bracket_action = BracketAction(self)
+        self.cursor = Cursor(screen, audio)
+        self.bracket_action = BracketAction(self, audio)
 
     def move_cursor_next(self):
 

@@ -1,4 +1,5 @@
 from core.session import Session
+from core.audio import AudioManager
 from core.boot import Boot
 from ui import menu
 from ui import menu_renderer
@@ -56,9 +57,9 @@ def main(stdscr):
     # ======================
     # BOOT SCREEN
     # ======================
-
-    boot = Boot()
-    boot_renderer = BootRenderer()
+    audio = AudioManager()
+    boot = Boot(audio)
+    boot_renderer = BootRenderer(audio=audio)
 
 
     stdscr.clear()
@@ -87,10 +88,13 @@ def main(stdscr):
     # MENU
     # ======================
 
-    menu = MainMenu()
+    menu = MainMenu(audio)
 
     menu_renderer = MenuRenderer()
-
+    
+    audio.play(
+        "menu.wav"
+    )
 
     while True:
 
@@ -114,7 +118,9 @@ def main(stdscr):
 
 
         elif key in (10,13):
-
+            audio.play(
+                "select.wav"
+            )
             if menu.current() == "ACCESS SECURITY SYSTEM":
                 break
 
@@ -148,7 +154,7 @@ def main(stdscr):
     # ======================
     # HACKING TERMINAL
     # ======================
-
+    stdscr.clear()
     loading_lines = [
         "ACCESSING SECURITY DATABASE...",
         "VERIFYING USER PRIVILEGES...",
@@ -156,27 +162,34 @@ def main(stdscr):
         "INITIALIZING HACKING MODULE..."
     ]
 
-
+    y=5
     for line in loading_lines:
-
-        stdscr.clear()
+        audio.play(
+            "radio_beep.wav"
+        )
+        #stdscr.clear()
 
         stdscr.addstr(
-            5,
+            y,
             5,
             line,
             curses.color_pair(1)
         )
 
         stdscr.refresh()
-
+        y+=1
         time.sleep(0.8)
 
 
     for i in range(18):
 
+        if i % 2 == 0:
+            audio.play(
+                "typing.wav"
+            )
+
         stdscr.addstr(
-            7,
+            y,
             5,
             "[" + "#" * i + " " * (17-i) + "]",
             curses.color_pair(1)
@@ -190,12 +203,12 @@ def main(stdscr):
     time.sleep(0.5)
 
 
-    session = Session()
+    session = Session(audio)
 
-    renderer = TerminalRenderer()
+    renderer = TerminalRenderer(audio=audio)
     
 
-
+    sound_played = False
     while True:
 
         stdscr.clear()
@@ -389,7 +402,9 @@ def main(stdscr):
 
 
         elif key in (10, 13):
-
+            audio.play(
+               "select.wav"
+            )
             session.select()
 
             if session.message:
@@ -398,11 +413,12 @@ def main(stdscr):
 
                 renderer.type_text(
                     stdscr,
-                    19,
+                    25,
                     session.message
                 )
 
                 stdscr.refresh()
+                time.sleep(0.5)
 
 
 
@@ -411,6 +427,34 @@ def main(stdscr):
         # ======================
 
         if session.is_finished():
+
+            if not sound_played:
+
+                if session.game.success:
+
+                    audio.play(
+                        "access_granted.wav"
+                    )
+
+                    time.sleep(1)
+
+                    audio.play(
+                        "access_granted2_fast.wav"
+                    )
+
+
+                elif session.game.locked:
+                    audio.play(
+                        "error.wav"
+                    )
+                    time.sleep(1)
+                    audio.play(
+                        "access_denied_fast.wav"
+                    )
+
+
+                sound_played = True
+
 
             try:
 

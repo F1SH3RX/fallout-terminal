@@ -4,8 +4,15 @@ import time
 
 class BootRenderer:
 
+    def __init__(self, audio=None):
+        self.audio = audio
+    
+    def play_typing_sound(self):
 
-
+        if self.audio:
+            self.audio.play(
+                "typing.wav"
+            )
     def draw_logo(self, stdscr):
 
         stdscr.clear()
@@ -33,7 +40,6 @@ class BootRenderer:
             )
 
             for char in line:
-
                 stdscr.addch(
                     char,
                     curses.color_pair(1)
@@ -54,7 +60,7 @@ class BootRenderer:
         y, x = stdscr.getyx()
 
         for char in text:
-
+            self.play_typing_sound()
             stdscr.addch(
                 char,
                 curses.color_pair(1)
@@ -78,7 +84,7 @@ class BootRenderer:
 
 
         for i in range(20):
-
+            self.play_typing_sound()
             stdscr.addstr(
                 "#",
                 curses.color_pair(1)
@@ -89,7 +95,7 @@ class BootRenderer:
             time.sleep(0.08)
 
 
-        stdscr.addstr("]\n")
+        stdscr.addstr("]\n", curses.color_pair(1))
 
         stdscr.refresh()
 

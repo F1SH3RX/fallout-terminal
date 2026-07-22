@@ -1,13 +1,15 @@
 import random
 
+from core import audio
+
 
 class BracketAction:
 
-    def __init__(self, terminal):
+    def __init__(self, terminal, audio=None):
         self.terminal = terminal
         self.hacking_game = terminal.game
         self.screen = terminal.screen
-
+        self.audio = audio
 
     def activate(self, element):
 
@@ -17,7 +19,11 @@ class BracketAction:
                 "RESET_ATTEMPTS"
             ]
         )
+        if self.audio:
 
+            self.audio.play(
+                "bracket.wav"
+            )
 
         if action == "REMOVE_DUD":
 

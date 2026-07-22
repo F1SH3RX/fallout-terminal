@@ -1,7 +1,8 @@
 class MainMenu:
 
-    def __init__(self):
+    def __init__(self, audio=None):
 
+        self.audio = audio
         self.options = [
             "ACCESS SECURITY SYSTEM",
             "SYSTEM INFORMATION",
@@ -13,14 +14,21 @@ class MainMenu:
 
         self.selected = 0
 
+    def play_move_sound(self):
 
+        if self.audio:
+
+            self.audio.play(
+                "cursor.wav"
+            )
+            
     def move_up(self):
 
         self.selected -= 1
 
         if self.selected < 0:
             self.selected = len(self.options) - 1
-
+        self.play_move_sound()
 
     def move_down(self):
 
@@ -28,7 +36,7 @@ class MainMenu:
 
         if self.selected >= len(self.options):
             self.selected = 0
-
+        self.play_move_sound()
 
     def current(self):
 

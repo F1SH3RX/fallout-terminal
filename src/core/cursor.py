@@ -1,13 +1,15 @@
 class Cursor:
 
-    def __init__(self, screen):
+    def __init__(self, screen, audio=None):
 
         self.screen = screen
-
+        self.audio = audio
         self.row = 0
         self.column = 0
 
+
     def clamp(self):
+
         if self.row < 0:
             self.row = 0
 
@@ -20,122 +22,84 @@ class Cursor:
         if self.column >= self.screen.columns:
             self.column = self.screen.columns - 1
 
+    def play_move_sound(self):
+
+        if self.audio:
+
+            self.audio.play(
+                "cursor.wav"
+            )
 
     def move_left(self):
 
-        elements = sorted(
-            self.elements,
-            key=lambda e: (e.row, e.column)
-        )
+        element = self.current()
 
-        current = self.current()
+        if element:
 
-        if current is None:
-            self.move_to(elements[0])
-            return
+            self.column = element.column - 1
 
-        index = elements.index(current)
+        else:
 
-        if index > 0:
-            self.move_to(
-                elements[index - 1]
-            )
+            self.column -= 1
+        self.play_move_sound()
+        self.clamp()
+
 
 
     def move_right(self):
 
-        elements = sorted(
-            self.elements,
-            key=lambda e: (e.row, e.column)
-        )
+        element = self.current()
 
-        current = self.current()
+        if element:
 
-        if current is None:
-            self.move_to(elements[0])
-            return
+            end = element.column + len(element.value)
 
-        index = elements.index(current)
+            self.column = end
 
-        if index < len(elements) - 1:
-            self.move_to(
-                elements[index + 1]
-            )
+        else:
+
+            self.column += 1
+
+        self.play_move_sound()
+        self.clamp()
+
+
 
     def move_up(self):
 
-        element = self.closest_vertical(
-            "up"
-        )
-
-        if element:
-            self.move_to(element)
+        self.row -= 1
+        self.play_move_sound()
+        self.clamp()
 
 
 
     def move_down(self):
 
-        element = self.closest_vertical(
-            "down"
-        )
-
-        if element:
-            self.move_to(element)
+        self.row += 1
+        self.play_move_sound()
+        self.clamp()
 
 
-
-    @property
-    def elements(self): 
-
-        return [
-            element
-            for element in self.screen.elements
-            if element.active
-        ]
-    
-    def move_to(self, element):
-
-        self.row = element.row
-        self.column = element.column
 
     def current(self):
 
-        for element in self.elements:
+        for element in self.screen.elements:
 
-            if (
-                element.row == self.row
-                and element.column == self.column
-            ):
+            if not element.active:
+                continue
+
+            if element.row != self.row:
+                continue
+
+
+            start = element.column
+
+            end = start + len(element.value)
+
+
+            if start <= self.column < end:
+
                 return element
 
+
         return None
-    
-    def closest_vertical(self, direction):
-
-        candidates = []
-
-        for element in self.elements:
-
-            if direction == "up":
-
-                if element.row < self.row:
-                    candidates.append(element)
-
-            if direction == "down":
-
-                if element.row > self.row:
-                    candidates.append(element)
-
-
-        if not candidates:
-            return None
-
-
-        return min(
-            candidates,
-            key=lambda e: (
-                abs(e.row - self.row)
-                +
-                abs(e.column - self.column)
-            )
-        )

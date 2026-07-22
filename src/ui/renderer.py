@@ -7,8 +7,9 @@ import time
 import curses
 class TerminalRenderer:
 
-    def __init__(self, start_address=0xF420):
+    def __init__(self, start_address=0xF420, audio=None):
         self.start_address = start_address
+        self.audio = audio
 
 
     def render(self, screen, cursor=None):
@@ -43,6 +44,14 @@ class TerminalRenderer:
                     )
 
 
+                elif cursor.row == row:
+
+                    highlight = (
+                        row,
+                        cursor.column,
+                        1
+                    )
+
             output.append(
                 f"{address.upper()}  {line}"
             )
@@ -71,6 +80,10 @@ class TerminalRenderer:
     def type_text(self, stdscr, row, text):
 
         for i in range(len(text) + 1):
+            if self.audio:
+                self.audio.play(
+                    "typing.wav"
+                )
 
             try:
 
@@ -83,7 +96,7 @@ class TerminalRenderer:
 
                 stdscr.refresh()
 
-                time.sleep(0.01)
+                time.sleep(0.04)
 
             except curses.error:
                 pass
