@@ -1,6 +1,18 @@
-.venv/
+# Python
 __pycache__/
 *.pyc
+*.pyo
+
+# Virtual environment
+.venv/
+
+# IDE
 .vscode/
 .idea/
-data/saves/
+
+# OS
+.DS_Store
+
+# Debug
+debug.txt
+*.log
