@@ -13,7 +13,7 @@ class Session:
 
         self.words = self.load_dictionary()
 
-        self.password = random.choice(self.words)
+        self.password = random.choice(self.words[:])
 
         generator = PuzzleGenerator(
             self.password,
@@ -60,11 +60,16 @@ class Session:
 
         with open(path, "r") as file:
 
-            return [
+            words = [
                 line.strip().upper()
                 for line in file
                 if line.strip()
             ]
+        return [
+            word
+            for word in words
+            if len(word) == 8
+        ]
 
     def select(self):
 
