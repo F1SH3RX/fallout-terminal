@@ -11,7 +11,6 @@ class TerminalRenderer:
         self.start_address = start_address
         self.audio = audio
 
-
     def render(self, screen, cursor=None):
 
         output = []
@@ -25,7 +24,6 @@ class TerminalRenderer:
             )
 
             line = screen.get_line(row)
-
 
             if cursor:
 
@@ -43,7 +41,6 @@ class TerminalRenderer:
                         len(element.value)
                     )
 
-
                 elif cursor.row == row:
 
                     highlight = (
@@ -56,8 +53,7 @@ class TerminalRenderer:
                 f"{address.upper()}  {line}"
             )
 
-
-        return "\n".join(output), highlight
+        return output, highlight
     
     def get_element_at(self, screen, row, column):
 

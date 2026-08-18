@@ -457,209 +457,210 @@ def main(stdscr):
 
 
 
-            for row, line in enumerate(
-                output.split("\n")
+            # ======================
+            # TWO COLUMN TERMINAL
+            # ======================
+
+            COLUMN_WIDTH = 40
+            COLUMN_GAP = 4
+
+            LEFT_X = 0
+            RIGHT_X = COLUMN_WIDTH + COLUMN_GAP
+
+            # Per ora dividiamo visivamente le righe
+            # in due colonne.
+            # ======================
+            # SPLIT OUTPUT IN TWO COLUMNS
+            # ======================
+
+            mid = (len(output) + 1) // 2
+
+            left_column = output[:mid]
+            right_column = output[mid:]
+            # ======================
+            # DRAW TWO COLUMNS
+            # ======================
+
+            mid = (len(output) + 1) // 2
+
+
+            def draw_line(
+                line,
+                screen_row,
+                screen_x,
+                logical_row
             ):
 
+                try:
 
-                if row >= max_y:
+                    # Nessun highlight su questa riga
+                    if (
+                        not highlight
+                        or highlight[0] != logical_row
+                    ):
 
-                    break
+                        stdscr.addstr(
+                            screen_row,
+                            screen_x,
+                            line[:COLUMN_WIDTH],
+                            curses.color_pair(1)
+                        )
 
-
-
-                # ======================
-                # HIGHLIGHT ELEMENT
-                # ======================
-
-
-                if highlight and highlight[0] == row:
+                        return
 
 
                     _, start, length = highlight
 
-
+                    # Indirizzo: "0XF420  "
                     OFFSET = 8
-
-
 
                     before = line[
                         :start + OFFSET
                     ]
-
-
 
                     word = line[
                         start + OFFSET:
                         start + OFFSET + length
                     ]
 
-
-
                     after = line[
                         start + OFFSET + length:
                     ]
 
 
+                    # BEFORE
+                    stdscr.addstr(
+                        screen_row,
+                        screen_x,
+                        before[:COLUMN_WIDTH],
+                        curses.color_pair(1)
+                    )
 
-                    try:
 
+                    # HIGHLIGHT
+                    current_x = (
+                        screen_x
+                        + len(before)
+                    )
+
+                    available = (
+                        COLUMN_WIDTH
+                        - len(before)
+                    )
+
+                    if available > 0:
+
+                        highlighted_word = word[
+                            :available
+                        ]
 
                         stdscr.addstr(
-
-                            row,
-
-                            0,
-
-                            before[:max_x-1],
-
+                            screen_row,
+                            current_x,
+                            highlighted_word,
                             curses.color_pair(1)
-
+                            | curses.A_REVERSE
                         )
 
 
+                    # AFTER
+                    after_x = (
+                        screen_x
+                        + len(before)
+                        + len(word)
+                    )
+
+                    remaining = (
+                        COLUMN_WIDTH
+                        - len(before)
+                        - len(word)
+                    )
+
+                    if remaining > 0:
 
                         stdscr.addstr(
-
-                            row,
-
-                            len(before),
-
-                            word[:max_x-len(before)-1],
-
-                            curses.color_pair(1) | curses.A_REVERSE
-
-                        )
-
-
-
-                        stdscr.addstr(
-
-                            row,
-
-                            len(before)+len(word),
-
-                            after[:max_x-len(before)-len(word)-1],
-
+                            screen_row,
+                            after_x,
+                            after[:remaining],
                             curses.color_pair(1)
-
                         )
 
 
-                    except curses.error:
+                except curses.error:
 
-                        pass
-
-
+                    pass
 
 
-                # ======================
-                # NORMAL LINE
-                # ======================
+            # ======================
+            # LEFT COLUMN
+            # ======================
+
+            for visual_row, line in enumerate(left_column):
+
+                logical_row = visual_row
+
+                draw_line(
+                    line,
+                    visual_row,
+                    LEFT_X,
+                    logical_row
+                )
 
 
-                else:
+            # ======================
+            # RIGHT COLUMN
+            # ======================
 
+            for visual_row, line in enumerate(right_column):
 
-                    try:
+                logical_row = mid + visual_row
 
-
-                        stdscr.addstr(
-
-                            row,
-
-                            0,
-
-                            line[:max_x-1],
-
-                            curses.color_pair(1)
-
-                        )
-
-
-                    except curses.error:
-
-                        pass
-
-
-
-
-
+                draw_line(
+                    line,
+                    visual_row,
+                    RIGHT_X,
+                    logical_row
+                )
             # ======================
             # INFO PANEL
             # ======================
 
-
             try:
 
-
-                info_y = len(output.split("\n")) + 1
-
-
+                info_y = max(len(left_column), len(right_column)) + 1
 
                 stdscr.addstr(
-
                     info_y,
-
                     0,
-
                     "PASSWORD ANALYSIS:",
-
                     curses.color_pair(1)
-
                 )
 
-
                 info_y += 1
-
-
 
                 for word, result in session.history:
 
-
                     stdscr.addstr(
-
                         info_y,
-
                         0,
-
                         f"{word:<12} {result}",
-
                         curses.color_pair(1)
-
                     )
-
 
                     info_y += 1
 
-
-
-
                 info_y += 1
 
-
-
                 stdscr.addstr(
-
                     info_y,
-
                     0,
-
-                    f"Attempts remaining: {session.game.attempts}",
-
+                    f"Attempts remaining: "
+                    f"{session.game.attempts}",
                     curses.color_pair(1)
-
                 )
 
-
-
             except curses.error:
-
                 pass
-
-
-
-
 
             # ======================
             # RESULT MESSAGE
